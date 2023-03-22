@@ -24,6 +24,7 @@ from artworldbackend.artworld import views
 
 router = routers.DefaultRouter()
 router.register(r'produtos', views.ProductViewSet)
+router.register(r'categorias', views.ProductViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

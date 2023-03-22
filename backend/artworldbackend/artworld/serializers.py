@@ -1,14 +1,16 @@
 from rest_framework import serializers
-from .models import Product
+from .models import Product, Category
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    category_name = serializers.CharField(source='category.name', read_only=True)
+
     class Meta:
         model = Product
-        fields = ('id', 'name', 'description', 'price', 'image')
+        fields = ('id', 'name', 'price', 'image', 'category', 'category_name')
 
 
-class ProductMiniSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = Category
         fields = ('id', 'name')

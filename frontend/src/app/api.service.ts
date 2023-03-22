@@ -20,15 +20,20 @@ export class ApiService {
   }
 
   updateProduct(product: any): Observable<any> {
-    const body = { name: product.name, description: product.description, price: product.price };
+    const body = { name: product.name, category: product.category, price: product.price };
     return this.http.put(this.baseurl + "/produtos/" + product.id + "/", body, { headers: this.httpHeaders })
   }
   createProduct(product: any): Observable<any> {
-    const body = { name: product.name, description: product.description, price: product.price};
+    const body = { name: product.name, category: product.category, price: product.price};
     return this.http.post(this.baseurl + "/produtos/", body, { headers: this.httpHeaders })
   }
 
   deleteProduct(id: any): Observable<any> {
     return this.http.delete(this.baseurl + "/produtos/" + id + "/", { headers: this.httpHeaders })
   }
+
+  getAllCategories(): Observable<any> {
+    return this.http.get(this.baseurl + "/categorias/", { headers: this.httpHeaders })
+  }
+
 }
