@@ -312,40 +312,80 @@
 <div class="content" role="main">
 
   <div class="content">
-
     <div>
-      <form (submit)="submitForm()">
+      <ul>
+        <li *ngFor="let product of products" (click)="productClicked(product)">
+          <!--<img [src]="getBaseUrl() + product.image " alt="{{ product.name }}">-->
+          <h2>{{product.name}}</h2>
+          <h3>{{getCategoryName(product.category)}} </h3>
+          <h3>R$ {{product.price}}</h3>
+        </li>
+      </ul>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+      <form #productForm="ngForm" (ngSubmit)="isProductUpdate ? updateProduct(productForm) : createProduct(productForm)"
+        enctype="multipart/form-data">
         <div>
           <label for="name">Nome: </label>
-          <input type="text" id="name" name="name" [(ngModel)]="product.name" required>
+          <input type="text" id="name" name="name" [(ngModel)]="selectedProduct.name" required>
         </div>
         <div>
           <label for="category">Categoria: </label>
-          <select name="category" id="category" [(ngModel)]="product.category">
+          <select name="category" id="category" [(ngModel)]="selectedProduct.category">
             <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
           </select>
         </div>
         <div>
           <label for="price">Preço: </label>
-          <input type="number" id="price" name="price" [(ngModel)]="product.price" required>
+          <input type="number" id="price" name="price" [(ngModel)]="selectedProduct.price" required
+            pattern="\d+(\.\d{2})?">
         </div>
         <div>
           <label for="image">Imagem: </label>
           <input type="file" id="image" name="image" (change)="onImageSelected($event)" accept=".jpg,.jpeg,.png"
             required>
         </div>
-        <button type="submit">Enviar</button>
+        <button type="submit">{{ isProductUpdate ? 'Atualizar' : 'Enviar' }}</button>
+        <button type="reset" (click)="getProducts()">Limpar</button>
+        <button type="reset" *ngIf="isProductUpdate" (click)="deleteProduct()">Apagar</button>
+      </form>
+      <button (click)="getProductsByCategory()">Filtrar</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+      <ul>
+        <li *ngFor="let category of categories" (click)="categoryClicked(category)">
+          <h2>{{category.name}}</h2>
+        </li>
+      </ul>
+    </div>
+    <br>
+    <div>
+      <form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm)">
+        <div>
+          <label for="name">Nome: </label>
+          <input type="text" id="name" name="name" [(ngModel)]="selectedCategory.name" required>
+        </div>
+        <button type="submit">{{ isCategoryUpdate ? 'Atualizar' : 'Enviar' }}</button>
+        <button type="reset" (click)="getCategories()">Limpar</button>
+        <button type="reset" *ngIf="isCategoryUpdate" (click)="deleteCategory()">Apagar</button>
       </form>
     </div>
 
-  </div> </div>
+  </div>
+</div>
 
-  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-  <!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-  <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>

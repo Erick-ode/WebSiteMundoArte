@@ -12,7 +12,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     price = models.FloatField()
-    image = models.BinaryField(null=True, blank=True)
+    image = models.ImageField(upload_to='products/', null=True)
 
     def __str__(self):
         return self.name

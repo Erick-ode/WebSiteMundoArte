@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
@@ -20,14 +21,19 @@ from django.contrib import admin
 
 from django.urls import include, path
 from rest_framework import routers
+
+from artworldbackend import settings
 from artworldbackend.artworld import views
 
 router = routers.DefaultRouter()
 router.register(r'produtos', views.ProductViewSet)
-router.register(r'categorias', views.ProductViewSet)
+router.register(r'categorias', views.CategoryViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('delete-image/<int:product_id>/', views.delete_image, name='delete-image'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
