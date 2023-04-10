@@ -19,8 +19,9 @@ export class ApiService {
     return this.http.get(this.baseurl + "/produtos/" + id + "/", { headers: this.httpHeaders })
   }
 
-  getProductsByCategory(category: any): Observable<any[]> {
-    return this.http.get<any[]>(this.baseurl + "/produtos/?categoria=" + category.id + "/", { headers: this.httpHeaders })
+  getProductsByCategory(category: any): Observable<any> {
+    console.log(category)
+    return this.http.get(this.baseurl + "/produtos/?categoria=" + category, { headers: this.httpHeaders })
   }
   
   createProduct(formData: any): Observable<any> {
@@ -34,30 +35,6 @@ export class ApiService {
 
   deleteProduct(id: any): Observable<any> {
     return this.http.delete(this.baseurl + "/produtos/" + id + "/", { headers: this.httpHeaders })
-  }
-
-  deleteProductImage(id: any): Observable<any>{
-    return this.http.delete(this.baseurl + "/delete-image/" + id + "/", { headers: this.httpHeaders })
-  }
-
-  getAllCategories(): Observable<any> {
-    return this.http.get(this.baseurl + "/categorias/", { headers: this.httpHeaders })
-  }
-
-  getOneCategory(id: any): Observable<any> {
-    return this.http.get(this.baseurl + "/categorias/" + id + "/", { headers: this.httpHeaders })
-  }
-
-  createCategory(formData: any): Observable<any> {
-    return this.http.post(this.baseurl + "/categorias/", formData)
-  }
-
-  updateCategory(category : any, formData: any): Observable<any> {
-    return this.http.put(this.baseurl + "/categorias/" + category.id + "/", formData)
-  }
-
-  deleteCategory(id: any): Observable<any> {
-    return this.http.delete(this.baseurl + "/categorias/" + id + "/", { headers: this.httpHeaders })
   }
 
 }

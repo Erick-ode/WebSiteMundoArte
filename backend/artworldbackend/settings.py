@@ -31,8 +31,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200"
 ]
 
-
-# Application definition
+CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'artworldbackend.artworld'
+    'artworldbackend.artworld',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +89,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

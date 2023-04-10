@@ -1,37 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiService } from './api.service';
+import { CategoryListService } from './category-list/category-list.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ApiService]
+  providers: [ApiService, CategoryListService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit{
   products = [{ name: '', category: null, price: 0.0, image: null }];
   selectedProduct;
   product = { name: '', category: null, price: 0.0, image: null };
   imageUrl: any;
 
-  categories: any[] = [];
-  category = { name: '' };
-  selectedCategory;
+  filterCategory: number = 0;
 
   isProductUpdate: boolean = false;
-  isCategoryUpdate: boolean = false;
 
-  constructor(private api: ApiService) {
-    this.getProducts();
+  categories: any[] = [];
+
+  constructor(private api: ApiService, private apiCategory: CategoryListService) {
     this.selectedProduct = { id: -1, name: '', category: null, price: 0.0, image: null };
-    this.selectedCategory = { id: -1, name: ''};
 
   }
 
-  ngOnInit(): void {
-    this.api.getAllCategories().subscribe((data: any[]) => {
-      this.categories = data;
-    });
+  ngOnInit() {
+    this.getProducts(this.filterCategory);
+    this.getCategories();
   }
 
   getBaseUrl = (): string => {
@@ -54,6 +51,35 @@ export class AppComponent implements OnInit {
     this.selectedProduct.image = event.target.files[0];
   }
 
+
+  getProducts = (categoryId?: number) => {
+    if (categoryId){
+      this.getProductsByCategory(categoryId);
+    }else{
+      this.api.getAllProducts().subscribe(
+        data => {
+          this.products = data;
+          this.isProductUpdate = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  getProductsByCategory = (category: number ) => {
+    this.api.getProductsByCategory(category).subscribe(
+      data => {
+        this.products = data;
+        this.isProductUpdate = false;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   createProduct = (form: NgForm) => {
     const formData = new FormData();
     formData.append('name', this.selectedProduct.name);
@@ -72,30 +98,6 @@ export class AppComponent implements OnInit {
       }
     );
 
-  }
-
-  getProducts = () => {
-    this.api.getAllProducts().subscribe(
-      data => {
-        this.products = data;
-        this.isProductUpdate = false;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  getProductsByCategory = () => {
-    this.api.getProductsByCategory(this.selectedProduct.category).subscribe(
-      data => {
-        this.products = data;
-        this.isProductUpdate = false;
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
 
   updateProduct = (form: NgForm) => {
@@ -121,18 +123,6 @@ export class AppComponent implements OnInit {
     this.api.deleteProduct(this.selectedProduct.id).subscribe(
       data => {
         this.getProducts();
-        //this.deleteProductImage();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  deleteProductImage = () =>{
-    this.api.deleteProductImage(this.selectedProduct.id).subscribe(
-      data => {
-        this.getProducts();
       },
       error => {
         console.log(error);
@@ -145,39 +135,10 @@ export class AppComponent implements OnInit {
     return category ? category.name : '';
   }
 
-  categoryClicked = (category: any) => {
-    this.api.getOneCategory(category.id).subscribe(
-      data => {
-        this.selectedCategory = data;
-        this.isCategoryUpdate = true;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  createCategory = (form: NgForm) => {
-    const formData = new FormData();
-    formData.append('name', this.selectedCategory.name);
-
-    this.api.updateCategory(this.selectedCategory, formData).subscribe(
-      data => {
-        this.getCategories();
-        form.resetForm();
-        this.isCategoryUpdate = false;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
   getCategories = () => {
-    this.api.getAllCategories().subscribe(
+    this.apiCategory.getAllCategories().subscribe(
       data => {
         this.categories = data;
-        this.isCategoryUpdate = false;
       },
       error => {
         console.log(error);
@@ -185,31 +146,5 @@ export class AppComponent implements OnInit {
     );
   }
 
-  updateCategory = (form: NgForm) => {
-    const formData = new FormData();
-    formData.append('name', this.category.name);
-
-    this.api.updateCategory(this.selectedCategory, formData).subscribe(
-      data => {
-        this.getCategories();
-        form.resetForm();
-        this.isCategoryUpdate = false;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  deleteCategory = () => {
-    this.api.deleteCategory(this.selectedCategory.id).subscribe(
-      data => {
-        this.getCategories();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
 
 }

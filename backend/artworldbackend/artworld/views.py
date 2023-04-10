@@ -1,11 +1,8 @@
 import os
-
-from django.http import JsonResponse
 from rest_framework import viewsets
 from .serializers import ProductSerializer, CategorySerializer
 from .models import Product, Category
 from rest_framework.response import Response
-from .. import settings
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -13,8 +10,23 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
     def list(self, request, *args, **kwargs):
+        category_id = request.query_params.get('categoria')
+
+        if category_id:
+            products = Product.objects.filter(category=category_id)
+
+        else:
+            products = Product.objects.all()
+
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
+        os.remove(instance.image.path)
+        self.perform_destroy(instance)
         return Response(serializer.data)
 
 
@@ -26,18 +38,3 @@ class CategoryViewSet(viewsets.ModelViewSet):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
-
-
-def delete_image(request, product_id):
-    product = Product.objects.get(id=product_id)
-    image_path = os.path.join(settings.MEDIA_ROOT, product.image.name)
-
-    if os.path.exists(image_path):
-        os.remove(image_path)
-
-        product.image = ''
-        product.save()
-
-        return JsonResponse({'message': 'Imagem excluída com sucesso.'})
-    else:
-        return JsonResponse({'message': 'Imagem não encontrada.'}, status=404)
