@@ -32,4 +32,30 @@ export class CategoryListService {
   deleteCategory(id: any): Observable<any> {
     return this.http.delete(this.baseurl + "/categorias/" + id + "/", { headers: this.httpHeaders })
   }
+
+  //Subcategorias
+
+  getAllSubcategories(): Observable<any> {
+    return this.http.get(this.baseurl + "/subcategorias/", { headers: this.httpHeaders })
+  }
+
+  getSubCategoryByCategory(category: any): Observable<any> {
+    return this.http.get(this.baseurl + "/subcategorias/?categoria=" + category, { headers: this.httpHeaders })
+  }
+
+  getOneSubcategory(id: any): Observable<any> {
+    return this.http.get(this.baseurl + "/subcategorias/" + id + "/", { headers: this.httpHeaders })
+  }
+
+  createSubcategory(formData: any): Observable<any> {
+    return this.http.post(this.baseurl + "/subcategorias/", formData)
+  }
+
+  updateSubcategory(category : any, formData: any): Observable<any> {
+    return this.http.put(this.baseurl + "/subcategorias/" + category.id + "/", formData)
+  }
+
+  deleteSubcategory(id: any): Observable<any> {
+    return this.http.delete(this.baseurl + "/subcategorias/" + id + "/", { headers: this.httpHeaders })
+  }
 }

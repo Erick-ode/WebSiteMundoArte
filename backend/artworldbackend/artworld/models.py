@@ -8,9 +8,18 @@ class Category(models.Model):
         return self.name
 
 
+class Subcategory(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    subcategory = models.ForeignKey(Subcategory, null=True, blank=True, on_delete=models.SET_NULL)
     price = models.FloatField()
     image = models.ImageField(upload_to='products/', null=True)
 

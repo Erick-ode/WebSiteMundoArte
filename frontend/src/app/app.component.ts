@@ -10,25 +10,28 @@ import { CategoryListService } from './category-list/category-list.service';
   providers: [ApiService, CategoryListService]
 })
 export class AppComponent implements OnInit{
-  products = [{ name: '', category: null, price: 0.0, image: null }];
+  products = [{ name: '', category: null, subcategory: null, price: 0.0, image: null }];
   selectedProduct;
-  product = { name: '', category: null, price: 0.0, image: null };
+  product = { name: '', category: null, subcategory: null, price: 0.0, image: null };
   imageUrl: any;
 
   filterCategory: number = 0;
+  filterSubcategory: number = 0;
 
   isProductUpdate: boolean = false;
 
   categories: any[] = [];
+  
+  subcategories: any[]= [];
 
   constructor(private api: ApiService, private apiCategory: CategoryListService) {
-    this.selectedProduct = { id: -1, name: '', category: null, price: 0.0, image: null };
-
+    this.selectedProduct = { id: -1, name: '', category: null, subcategory: null, price: 0.0, image: null };
   }
 
   ngOnInit() {
     this.getProducts(this.filterCategory);
     this.getCategories();
+    this.getSubcategories();
   }
 
   getBaseUrl = (): string => {
@@ -52,10 +55,13 @@ export class AppComponent implements OnInit{
   }
 
 
-  getProducts = (categoryId?: number) => {
-    if (categoryId){
+  getProducts = (categoryId?: number, subcategoryId?: number) => {
+    if (subcategoryId){
+      this.getProductsBySubcategory(subcategoryId);
+    } else if(categoryId){
       this.getProductsByCategory(categoryId);
-    }else{
+    }
+    else{
       this.api.getAllProducts().subscribe(
         data => {
           this.products = data;
@@ -80,9 +86,22 @@ export class AppComponent implements OnInit{
     );
   }
 
+  getProductsBySubcategory = (subcategory: number ) => {
+    this.api.getProductsBySubCategory(subcategory).subscribe(
+      data => {
+        this.products = data;
+        this.isProductUpdate = false;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   createProduct = (form: NgForm) => {
     const formData = new FormData();
     formData.append('name', this.selectedProduct.name);
+    formData.append('subcategory', this.selectedProduct.subcategory ? this.selectedProduct.subcategory : '');
     formData.append('category', this.selectedProduct.category ? this.selectedProduct.category : '');
     formData.append('price', this.selectedProduct.price.toString());
     formData.append('image', this.selectedProduct.image ? this.selectedProduct.image : '');
@@ -104,6 +123,7 @@ export class AppComponent implements OnInit{
     const formData = new FormData();
     formData.append('name', this.selectedProduct.name);
     formData.append('category', this.selectedProduct.category ? this.selectedProduct.category : '');
+    formData.append('subcategory', this.selectedProduct.subcategory ? this.selectedProduct.subcategory : '');
     formData.append('price', this.selectedProduct.price.toString());
     formData.append('image', this.selectedProduct.image ? this.selectedProduct.image : '');
 
@@ -144,6 +164,34 @@ export class AppComponent implements OnInit{
         console.log(error);
       }
     );
+  }
+
+  getSubcategoryName = (subcategoryId: any): string => {
+    const subcategory = this.subcategories.find(sc => sc.id === subcategoryId);
+    return subcategory ? subcategory.name : '';
+  }
+
+  getSubcategories = (category?: number) => {
+    if(category){
+      this.apiCategory.getSubCategoryByCategory(category).subscribe(
+        data => {
+          this.subcategories = data;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else{
+      this.apiCategory.getAllSubcategories().subscribe(
+        data => {
+          this.subcategories = data;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+    
   }
 
 

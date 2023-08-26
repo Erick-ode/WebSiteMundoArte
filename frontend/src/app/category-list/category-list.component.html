@@ -323,5 +323,36 @@
       </div>
   
     </div>
+
+    <!--Subcategorias-->
+    <div class="content" role="main">
+  
+      <div>
+        <ul>
+          <li *ngFor="let subcategory of subcategories" (click)="subcategoryClicked(subcategory)">
+            <h2>{{subcategory.name}}</h2>
+          </li>
+        </ul>
+      </div>
+      <br>
+      <div>
+        <form #subcategoryForm="ngForm" (ngSubmit)="createSubcategory(subcategoryForm)">
+          <div>
+            <label for="name">Nome: </label>
+            <input type="text" id="name" name="name" [(ngModel)]="selectedSubcategory.name" required>
+          </div>
+          <div>
+            <label for="category">Categoria Principal: </label>
+            <select name="category" id="category" [(ngModel)]="selectedSubcategory.category">
+              <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+          <button type="submit">{{ isSubcategoryUpdate ? 'Atualizar' : 'Enviar' }}</button>
+          <button type="reset" (click)="getSubcategories()">Limpar</button>
+          <button type="reset" *ngIf="isSubcategoryUpdate" (click)="deleteSubcategory()">Apagar</button>
+        </form>
+      </div>
+  
+    </div>
   
   <router-outlet></router-outlet>

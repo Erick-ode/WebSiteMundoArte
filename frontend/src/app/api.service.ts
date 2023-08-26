@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  baseurl = "http://127.0.0.1:8000";
+  baseurl = "http://127.0.0.1:8000"
   httpHeaders = new HttpHeaders({ })
 
   constructor(private http: HttpClient) { }
@@ -20,8 +20,12 @@ export class ApiService {
   }
 
   getProductsByCategory(category: any): Observable<any> {
-    console.log(category)
     return this.http.get(this.baseurl + "/produtos/?categoria=" + category, { headers: this.httpHeaders })
+  }
+
+  getProductsBySubCategory(subcategory: any): Observable<any> {
+    console.log(subcategory)
+    return this.http.get(this.baseurl + "/produtos/?subcategoria=" + subcategory, { headers: this.httpHeaders })
   }
   
   createProduct(formData: any): Observable<any> {

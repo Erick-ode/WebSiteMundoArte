@@ -11,22 +11,34 @@ import { CategoryListService } from './category-list.service';
 export class CategoryListComponent implements OnInit{
   categories: any[] = [];
   category = { name: '' };
+  
+  subcategories: any[] = [];
+  subcategory = { name: '', category: null };
+
   selectedCategory;
+  selectedSubcategory;
 
   isCategoryUpdate: boolean = false;
+  isSubcategoryUpdate: boolean = false;
+
+  filterCategory: number = 0;
 
   constructor(private api: CategoryListService) {
     this.selectedCategory = { id: -1, name: ''};
-
+    this.selectedSubcategory = {id: -1, name: '', category: null}
   }
 
   ngOnInit() {
     this.getCategories();
+    this.getSubcategories();
   }
 
   categoryClicked = (category: any) => {
     this.api.getOneCategory(category.id).subscribe(
       data => {
+        console.log(category)
+        this.getSubcategories(category.id);
+        console.log(this.subcategories)
         this.selectedCategory = data;
         this.isCategoryUpdate = true;
       },
@@ -52,7 +64,7 @@ export class CategoryListComponent implements OnInit{
     const formData = new FormData();
     formData.append('name', this.selectedCategory.name);
 
-    this.api.updateCategory(this.selectedCategory, formData).subscribe(
+    this.api.createCategory(formData).subscribe(
       data => {
         this.getCategories();
         form.resetForm();
@@ -92,5 +104,93 @@ export class CategoryListComponent implements OnInit{
     );
   }
 
+  // Subcategorias
+
+  subcategoryClicked = (subcategory: any) => {
+    this.api.getOneSubcategory(subcategory.id).subscribe(
+      data => {
+        this.selectedSubcategory = data;
+        this.isSubcategoryUpdate = true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getSubcategories = (categoryId?: number)=> {
+    if(categoryId){
+      this.api.getSubCategoryByCategory(categoryId).subscribe(
+        data => {
+        
+          this.subcategories = data;
+          this.isSubcategoryUpdate = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }else{
+      this.api.getAllSubcategories().subscribe(
+      data => {
+        
+        this.subcategories = data;
+        this.isSubcategoryUpdate = false;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    }
+        
+  }
+
+  createSubcategory = (form: NgForm) => {
+    const formData = new FormData();
+    formData.append('name', this.selectedSubcategory.name);
+    formData.append('category', this.selectedSubcategory.category ? this.selectedSubcategory.category : '');
+
+    this.api.createSubcategory(formData).subscribe(
+      data => {
+        this.getCategories();
+        this.getSubcategories();
+        form.resetForm();
+        this.isSubcategoryUpdate = false;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateSucategory = (form: NgForm) => {
+    const formData = new FormData();
+    formData.append('name', this.category.name);
+    formData.append('category', this.selectedSubcategory.category ? this.selectedSubcategory.category : '');
+
+    this.api.updateSubcategory(this.selectedSubcategory, formData).subscribe(
+      data => {
+        this.getCategories();
+        this.getSubcategories();
+        form.resetForm();
+        this.isSubcategoryUpdate = false;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  deleteSubcategory = () => {
+    this.api.deleteSubcategory(this.selectedSubcategory.id).subscribe(
+      data => {
+        this.getCategories();
+        this.getSubcategories();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
 }

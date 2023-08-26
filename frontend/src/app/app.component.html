@@ -320,14 +320,22 @@
       </select>
       <button type="reset" (click)="getProducts(filterCategory)">Filtrar</button>
     </div>
+    <div>
+      <label for="subcategory">Subcategoria:</label>
+      <select id="subcategory" [(ngModel)]="filterSubcategory">
+        <option value="">Todas as categorias</option>
+        <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{subcategory.name}}</option>
+      </select>
+      <button type="reset" (click)="getProducts(filterCategory, filterSubcategory)">Filtrar</button>
+    </div>
 
     <div>
       <ul>
         <li *ngFor="let product of products" (click)="productClicked(product)">
           <h2>{{product.name}}</h2>
-          <h3>{{getCategoryName(product.category)}} </h3>
+          <h3>{{getCategoryName(product.category)}}:  {{getSubcategoryName(product.subcategory)}}</h3>
           <h3>R$ {{product.price}}</h3>
-          <!--<img [src]="getBaseUrl() + product.image " alt="{{ product.name }}">-->
+          <img [src]="getBaseUrl() + product.image " alt="{{ product.name }}">
         </li>
       </ul>
     </div>
@@ -346,6 +354,12 @@
           <label for="category">Categoria: </label>
           <select name="category" id="category" [(ngModel)]="selectedProduct.category">
             <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="subcategory">Subcategoria: </label>
+          <select name="subcategory" id="subcategory" [(ngModel)]="selectedProduct.subcategory">
+            <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
           </select>
         </div>
         <div>
