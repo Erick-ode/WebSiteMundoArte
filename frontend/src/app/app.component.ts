@@ -79,6 +79,7 @@ export class AppComponent implements OnInit{
       data => {
         this.products = data;
         this.isProductUpdate = false;
+        
       },
       error => {
         console.log(error);
@@ -91,6 +92,7 @@ export class AppComponent implements OnInit{
       data => {
         this.products = data;
         this.isProductUpdate = false;
+        console.log(this.products)
       },
       error => {
         console.log(error);
@@ -100,6 +102,7 @@ export class AppComponent implements OnInit{
 
   createProduct = (form: NgForm) => {
     const formData = new FormData();
+
     formData.append('name', this.selectedProduct.name);
     formData.append('subcategory', this.selectedProduct.subcategory ? this.selectedProduct.subcategory : '');
     formData.append('category', this.selectedProduct.category ? this.selectedProduct.category : '');
@@ -111,6 +114,7 @@ export class AppComponent implements OnInit{
         this.products.push(data);
         form.resetForm();
         this.isProductUpdate = false;
+        console.log(this.products)
       },
       error => {
         console.log(error);
@@ -171,27 +175,15 @@ export class AppComponent implements OnInit{
     return subcategory ? subcategory.name : '';
   }
 
-  getSubcategories = (category?: number) => {
-    if(category){
-      this.apiCategory.getSubCategoryByCategory(category).subscribe(
-        data => {
-          this.subcategories = data;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    } else{
-      this.apiCategory.getAllSubcategories().subscribe(
-        data => {
-          this.subcategories = data;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-    
+  getSubcategories = () => {
+    this.apiCategory.getAllSubcategories().subscribe(
+      data => {
+        this.subcategories = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 

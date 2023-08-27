@@ -351,15 +351,15 @@
           <input type="text" id="name" name="name" [(ngModel)]="selectedProduct.name" required>
         </div>
         <div>
-          <label for="category">Categoria: </label>
-          <select name="category" id="category" [(ngModel)]="selectedProduct.category">
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-          </select>
-        </div>
-        <div>
           <label for="subcategory">Subcategoria: </label>
           <select name="subcategory" id="subcategory" [(ngModel)]="selectedProduct.subcategory">
             <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label for="category">Categoria: </label>
+          <select name="category" id="category" [(ngModel)]="selectedProduct.category">
+            <option *ngFor="let subcategory of subcategories" [value]="subcategory.category.id">{{ subcategory.category_name }}</option>
           </select>
         </div>
         <div>
