@@ -1,0 +1,47 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Página Inicial do Site">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Página Inicial do Site">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<div class="filter-dropdown">
+  Selecione categorias
+  <i class="fa fa-chevron-down"></i>
+</div>
+<div class="product-filter">
+  <button class="filter-clear-button" (click)="clearFilterCategory()">Limpar filtro</button>
+  <div class="filter-container">
+    <ul class="category-list">
+      <li *ngFor="let category of categories" class="category-item" [class.active]="filterCategory === category.id">
+        <a (click)="setFilterCategory(category.id)" class="category-link">{{ category.name }}<i
+            class="icon-chevron-down" [class.rotated]="filterCategory === category.id"></i></a>
+        <div *ngIf="filterCategory == category.id" class="sub-category">
+          <ul>
+            <li *ngFor="let subCategory of category.subCategories">{{ subCategory.name }}</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="content">
+    <ul class="product-list">
+        <li class="product-item" *ngFor="let product of products" (click)="productClicked(product)">
+            <div class="product-caption">
+                <h2>{{product.name}}</h2>
+            </div>
+            <div class="product-image">
+                <img [src]="getBaseUrl() + product.image" alt="{{ product.name }}">
+            </div>
+            <div class="product-info">
+                <h3>{{getCategoryName(product.category)}}</h3>
+                <h3>R$: {{product.price}},00</h3>
+            </div>
+        </li>
+    </ul>
+</div>

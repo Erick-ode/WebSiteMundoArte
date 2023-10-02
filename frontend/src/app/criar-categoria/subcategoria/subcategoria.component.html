@@ -1,0 +1,47 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<!-- Botão de Voltar -->
+<button (click)="goToCategorias()">
+  <i class="fas fa-arrow-left"></i> Voltar à tela de Categorias
+</button>
+
+<div class="container">
+
+  <!-- Seção de Subcategorias -->
+  <div class="section subcategory-section">
+    <h1>Subcategorias de {{ categoryName }}</h1>
+
+    <!-- Listagem de Subcategorias -->
+    <ul class="subcategory-list">
+      <li *ngFor="let subcategory of subcategories" (click)="subcategoryClicked(subcategory)">
+        {{subcategory.name}}
+      </li>
+    </ul>
+
+    <!-- Formulário de Subcategorias -->
+    <div class="subcategory-form">
+      <h3>{{ isSubcategoryUpdate ? 'Atualizar Subcategoria' : 'Criar Subcategoria' }}</h3>
+      <form #subcategoryForm="ngForm" (ngSubmit)="createSubcategory(subcategoryForm)">
+        <div>
+          <label for="name">Nome: </label>
+          <input type="text" id="name" name="name" [(ngModel)]="selectedSubcategory.name" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit">
+            <i class="fas fa-save"></i> {{ isSubcategoryUpdate ? 'Atualizar' : 'Criar' }}
+          </button>
+          <button type="reset" (click)="getSubcategories()">
+            <i class="fas fa-eraser"></i> Limpar
+          </button>
+          <button type="reset" *ngIf="isSubcategoryUpdate" (click)="deleteSubcategory()">
+            <i class="fas fa-trash"></i> Apagar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

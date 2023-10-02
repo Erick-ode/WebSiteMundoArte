@@ -1,1 +1,243 @@
-/* You can add global styles to this file, and also import other style files */
+
+.menu {
+  background: linear-gradient(to right, #FF8A65, #FF7043);
+}
+
+@media screen and (max-width: 768px) {
+  .footer-text, .location, .title {
+      font-size: 10px;
+      text-align: center;
+  }
+  
+  .social-links {
+      justify-content: space-around;
+      margin-bottom: 15px;
+  }
+  
+  .phone i, .location i {
+      margin-right: 3px;
+  }
+}
+
+footer {
+  background-color: #333;
+  padding: 20px 0;
+}
+
+:root {
+--color-primary: #ba0b6b;           /* Azul marinho */
+--color-secondary: #7d6373;      /* Azul celeste */
+--color-tertiary: #BBE1FA;       /* Azul bebê */
+--color-quaternary: #000000;     /* Azul petróleo */
+--color-quinary: #FF4B2B;        /* Vermelho coral */
+--color-senary: #DAA520;         /* Ouro */
+--color-septenary: #e1e5e4;      /* Verde pálido */
+--color-octonary: #1D3557;       /* Azul Prussian */
+--color-light: #f9f9f9;          /* Branco quase puro */
+--color-dark: #171717;           /* Preto quase puro */
+--color-text-light: #e1e5e4;     /* Branco */
+--color-text-dark: #000000;      /* Preto */
+
+--font-family-default: 'Arial', 'Helvetica', 'sans-serif';
+--font-size-default: 1rem;
+--font-size-medium: 1.125rem;
+--font-size-large: 1.5rem;
+--spacing-default: 1rem;
+--spacing-small: 0.5rem;
+--spacing-large: 2rem;
+
+--breakpoint-small: 37.5em;
+}
+
+html, body {
+height: 100%;
+}
+
+body {
+display: flex;
+flex-direction: column;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 15px;
+background-color: var(--color-septenary);
+min-height: 100vh; 
+}
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 15px;
+background-color: var(--color-septenary);
+}
+
+title{
+align-items: center;
+}
+
+.container {
+width: 90%;
+margin: 0 auto;
+}
+
+title{
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+h2{
+  text-align: center;
+  font-size: 18px;
+  color: rgb(107, 12, 53);
+}
+h3{
+  font-size: 14px;
+  color: #000000;  
+}
+
+
+/* Formulário */
+
+
+form div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+form div label {
+  font-weight: bold;
+}
+
+form div input, form div select {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form div button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form div button:hover {
+  background-color: #45a049;
+}
+
+form div button[type="reset"] {
+  background-color: #f44336;
+}
+
+form div button[type="reset"]:hover {
+  background-color: #d32f2f;
+}
+
+form div button:disabled {
+  background-color: #ddd;
+  color: #666;
+}
+/* Rodapé */
+/* CSS */
+/* Rodapé */
+/* CSS */
+
+.element-above-footer {
+margin-bottom: 100px; /* Ajuste este valor de acordo com a altura do seu footer */
+}
+.footer-text {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.location, .phone {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.phone i {
+  margin-right: 5px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.social-link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.social-link i {
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.social-link:hover i {
+  transform: scale(1.2);
+}
+
+.title {
+  font-size: 14px;
+}
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .footer-text, .location, .title {
+      font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .company {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .whatsapp {
+    margin-top: 10px;
+  }
+
+  .menu-item {
+    margin-right: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .menu-item a {
+    padding: 5px;
+  }
+
+  .dropdown-content {
+    position: static;
+    display: none;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #171717;
+    min-width: 120px;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+
+}

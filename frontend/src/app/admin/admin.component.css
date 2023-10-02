@@ -1,0 +1,86 @@
+
+/* Estilo para o botão "Criar Categorias" */
+
+.button_categorias a {
+    display: inline-block;
+    padding: 15px 30px; /* Aumento no padding */
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px; /* Aumento no tamanho da fonte */
+    background-color: #A13466;
+    color: #FFFFFF;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.button_categorias a:hover {
+    background-color: #D1588A; /* cor mais clara ao passar o mouse */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.button_categorias a:active {
+    background-color: #8E2D53; /* cor mais escura ao clicar */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Estilo para o botão "Cadastrar Produtos" */
+.centered a.centered-button {
+    display: inline-block;
+    padding: 15px 30px; /* Aumento no padding */
+    width: 250px; /* Aumento na largura */
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px; /* Aumento no tamanho da fonte */
+    background-color: #A13466;
+    color: #FFFFFF;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.centered a.centered-button:hover {
+    background-color: #D1588A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.centered a.centered-button:active {
+    background-color: #8E2D53;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.admin-wrapper {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    height: 100vh; /* Ocupa toda a altura da janela do navegador */
+    flex-direction: column; /* Os itens serão dispostos em coluna, um abaixo do outro */
+}
+
+.menu-actions {
+    text-align: center;
+}
+
+.menu-actions ul {
+    list-style-type: none; /* Remove os marcadores de lista */
+    padding: 0;
+    margin: 0;
+}
+
+.menu-actions li {
+    margin-bottom: 10px; /* Espaçamento entre os botões */
+}
+
+/* Para tornar responsivo */
+@media (max-width: 600px) {
+    .button_categorias a, .centered a.centered-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .menu-actions a {
+        font-size: 1.2em;
+    }
+}

@@ -1,0 +1,81 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<!-- Botão Voltar à tela de Admin -->
+<button (click)="goToAdminPage()">
+  <i class="fas fa-arrow-left"></i> Voltar à tela de Admin
+</button>
+
+<!-- Botão para criar um novo produto -->
+<button (click)="showCreation($event)">
+  <i class="fas fa-plus"></i> Criar Produto
+</button>
+
+
+<!-- Formulário de produto -->
+<div class="product-form-container" *ngIf="showForm" (clickOutside)="hideForm()">
+  <div class="form-header">
+    <h2>{{ isProductUpdate ? 'Atualizar Produto' : 'Novo Produto' }}</h2>
+    <button class="close-form-button" (click)="hideForm()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <form #productForm="ngForm" (ngSubmit)="isProductUpdate ? updateProduct(productForm) : createProduct(productForm)" enctype="multipart/form-data">
+
+    <div class="input-group">
+      <label for="name">Nome</label>
+      <input type="text" id="name" name="name" [(ngModel)]="selectedProduct.name" required>
+    </div>
+
+    <label for="category">Categoria:</label>
+    <select id="category" name="category" [ngModel]="selectedCategory" (change)="onCategoryChange($event)">
+      <option [value]="null" disabled>Selecione uma categoria</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+    </select>
+    
+    <label for="subcategory">Subcategoria:</label>
+    <select id="subcategory" name="subcategory" [(ngModel)]="selectedSubcategory">
+      <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{subcategory.name}}</option>
+    </select>
+    
+    <div class="input-group">
+      <label for="price">Preço</label>
+      <input type="number" id="price" name="price" [(ngModel)]="selectedProduct.price" required>
+    </div>
+
+    <div class="input-group">
+      <label for="image">Imagem</label>
+      <input type="file" id="image" name="image" accept="image/*" (change)="onImageSelected($event)" required>
+    </div>
+
+    <div class="form-actions">
+     <button class="submit-button" type="submit">
+  <i class="fas fa-save"></i> {{ isProductUpdate ? 'Atualizar' : 'Enviar' }}
+</button>
+<button class="clear-button" type="reset" (click)="getProducts()">
+  <i class="fas fa-broom"></i> Limpar
+</button>
+<button class="delete-button" *ngIf="isProductUpdate" (click)="deleteProduct()">
+  <i class="fas fa-trash"></i> Apagar
+</button>
+    </div>
+
+  </form>
+</div>
+
+<!-- Lista de produtos -->
+<div class="product-list">
+  <div *ngFor="let product of products" class="product-item" (click)="productClicked(product); $event.stopPropagation()">
+    <div class="product-info">
+      <h2>{{ product.name }}</h2>
+      <p class="category">{{ getCategoryName(product.category) }}</p>
+      <p class="price">R$ {{ product.price }}</p>
+    </div>
+    <img class="product-image" [src]="getBaseUrl() + product.image" alt="{{ product.name }}">
+    <p class="subcategory">{{ getSubcategoryName(product.subcategory) }}</p>    
+  </div>
+</div>

@@ -1,0 +1,377 @@
+
+@media screen and (max-width: 480px) {
+    .menu {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 15px;
+    }
+    
+    .menu-item {
+        padding: 5px 0;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    footer {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-item {
+        margin: 10px 0;
+    }
+}
+:root {
+  --color-primary: #1D3557;           /* Preto */
+  --color-secondary: #434e54;      /* Azul marinho */
+  --color-tertiary: #0d3335;       /* Azul céu */
+  --color-quinary: #E63946;        /* Vermelho */
+  --color-senary: #D2B48C;         /* Marrom claro */
+  --color-septenary: #F1FAEE;      /* Cinza claro */
+  --color-octonary: #E63946;       /* Vermelho escuro */
+  --color-light: #f3f3f3;          /* Branco quase puro */
+  --color-dark: #1D3557;           /* Preto quase puro */
+  --color-text-light: #F1FAEE;     /* Branco */
+  --color-text-dark: #1D3557;      /* Preto */
+  --text-color: #f2f2f2; /* Cor quase branca para o texto */
+  --facebook-color: #1877F2;
+  --instagram-color: #E1306C;
+  --whatsapp-color: #25D366;
+  --footer-bg-color: #000000; /* Fundo preto para o rodapé */
+  --font-family-default: 'Arial', 'Helvetica', 'sans-serif';
+  --font-size-default: 1rem;
+  --font-size-medium: 1.125rem;
+  --font-size-large: 1.5rem;
+  --spacing-default: 1rem;
+  --spacing-small: 0.5rem;
+  --spacing-large: 2rem;
+
+  --breakpoint-small: 37.5em;
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+title{
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+h2{
+  text-align: center;
+  font-size: 18px;
+  color: black;
+}
+h3{
+  font-size: 14px;
+  color: #000000;  
+}
+/* Cabeçalhos do site */
+
+
+
+/* Navbar Styles */
+.menu {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-image: linear-gradient(rgb(230, 217, 217), rgb(196, 51, 109)) ; /* Cor de fundo ajustada para branco */
+  color: var(--color-dark); /* Cor do texto ajustada para cinza escuro */
+}
+.menu-items, .Empresa {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: #fefbfb;
+  padding: 10px 15px;
+}
+
+.menu-item .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #FFFFFF;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  min-width: 160px;
+}
+
+.menu-item .dropdown-content li {
+  color: #000000;
+  padding: 12px 16px;
+  display: block;
+  text-align: left;
+}
+
+.menu-item:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: var(--color-light); /* Cor de fundo ajustada para cinza claro */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  color: var(--color-dark); /* Cor do texto ajustada para cinza escuro */
+}
+
+.dropdown-content a {
+  color: var(--color-dark); /* Cor do link ajustada para cinza escuro */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content li a {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-content li a .fa {
+  margin-right: 10px; /* dá algum espaço entre o ícone e o texto */
+}
+
+.dropdown-content a:hover {
+  background-color: var(--color-tertiary); /* Cor do hover ajustada para cinza médio */
+}
+
+.menu-item:hover .dropdown-content {
+  display: block;
+}
+.Empresa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+
+.Empresa a {
+  text-decoration: none;
+  color: #A13466;
+  font-size: 20px;
+  text-align: center; /* centralizar o texto */
+}
+
+.Empresa img {
+  border-radius: 10%;
+  border: 3px solid #8f2f6b8c;
+  height: 80px;
+  width: 120px;
+  display: block; /* forçar a imagem a ocupar sua própria linha */
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease;
+}
+.Empresa img:hover {
+  transform: scale(1.05); /* efeito de escala */
+}
+.Empresa a:hover {
+  color: #c23572; /* cor mais clara para o hover */
+  transform: scale(1.05); /* efeito de escala */
+}
+
+.whatsapp {
+  display: flex;
+  align-items: center;
+  background-color: #25D366; /* Verde WhatsApp */
+  padding: 10px;
+  border-radius: 5px;
+  transition: transform .2s, background-color .2s;
+}
+
+.whatsapp a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.whatsapp:hover {
+  transform: scale(1.1);
+  background-color: #128C7E; /* Verde mais escuro para o hover, ainda dentro das cores do WhatsApp */
+}
+
+.whatsapp-icon {
+  margin-right: 10px;
+}
+
+.whatsapp-number {
+  font-size: 16px;
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid var(--color-dark); /* Cor da borda ajustada para cinza escuro */
+  margin: 0 auto;
+  width: 50%;
+}
+
+form div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+form div button {
+  padding: 10px;
+  border: 0;
+  background-color: var(--color-tertiary);
+  color: var(--color-dark); /* Cor do texto ajustada para cinza escuro */
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
+form div button:hover {
+  background-color: var(--color-secondary); /* Cor do hover ajustada para azul marinho */
+}
+
+form div button[type="reset"] {
+  background-color: var(--color-quinary); /* Cor do botão reset ajustada para vermelho */
+}
+
+form div button[type="reset"]:hover {
+  background-color: var(--color-octonary); /* Cor do hover do botão reset ajustada para vermelho escuro */
+}
+
+form div button:disabled {
+  background-color: var(--color-septenary); /* Cor do botão desativado ajustada para cinza claro */
+  color: var(--color-dark); /* Cor do texto do botão desativado ajustada para cinza escuro */
+  cursor: not-allowed;
+}
+
+.nav-item i {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Cores para os ícones das redes sociais */
+.fab.fa-facebook {
+  color: #3b5998; /* Cor do Facebook */
+}
+
+.fab.fa-instagram {
+  color: #C13584; /* Cor do Instagram */
+}
+
+.fab.fa-whatsapp {
+  color: #25D366; /* Cor do WhatsApp */
+}
+
+/* Adiciona um pouco de espaço entre os ícones e o texto para que fiquem mais organizados */
+.nav-link i {
+  margin-right: 8px;
+}
+
+.footer-logo {
+  width: 150px;
+  height: 130px;
+  padding: 15px;
+  border-radius: 50px;
+  transition: transform 0.3s ease;
+  vertical-align: middle; /* Esta propriedade ajuda a alinhar o logo verticalmente */
+}
+
+.footer-brand-text {
+  color: #A7406D;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+  display: inline-block; /* Faz o h3 se comportar como um elemento inline */
+  vertical-align: middle; /* Alinha o texto verticalmente no meio em relação ao logo */
+}
+
+.footer-brand-link:hover .footer-logo,
+.footer-brand-link:hover .footer-brand-text {
+  transform: scale(1.1);
+}
+.address-section {
+  border-left: 4px solid #f7b05b; /* por exemplo, uma borda colorida para destaque */
+  padding-left: 15px;
+}
+
+.address-section h4 {
+  color: #f7b05b; /* a cor pode ser a cor principal do seu design */
+  font-weight: bold;
+}
+
+h3 {
+  color: #FFF; /* Cor do texto. Você pode ajustar conforme necessário */
+  font-weight: 600; /* Espessura do texto. Ajuste conforme necessário */
+  font-size: 30px;
+}
+/* Responsive Styles */
+
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .company {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .whatsapp {
+    margin-top: 10px;
+  }
+
+  .menu-item {
+    margin-right: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .menu-item a {
+    padding: 5px;
+  }
+
+  .dropdown-content {
+    position: static;
+    display: none;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #171717;
+    min-width: 120px;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+}
+@media screen and (max-width: var(--breakpoint-small)) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+}

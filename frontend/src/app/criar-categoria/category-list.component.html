@@ -1,0 +1,53 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<!-- Botão de Voltar -->
+<button (click)="goToAdminPage()">
+  <i class="fas fa-arrow-left"></i> Voltar à tela de Admin
+</button>
+
+<div class="container">
+
+  <!-- Seção de Categorias -->
+  <div class="section category-section">
+    <h1>Categorias</h1>
+
+    <!-- Listagem de Categorias -->
+    <ul class="category-list">
+      <li *ngFor="let category of categories" (click)="categoryClicked(category)">
+        {{category.name}}
+      </li>
+    </ul>
+
+<!-- Formulário de Categorias -->
+<div class="category-form">
+  <h3>{{ isCategoryUpdate ? 'Atualizar Categoria' : 'Criar Categoria' }}</h3>
+  <form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm)">
+    <div>
+      <label for="name">Nome: </label>
+      <input type="text" id="name" name="name" [(ngModel)]="selectedCategory.name" required>
+    </div>
+    <div class="form-actions">
+      <button type="submit">
+        <i class="fas fa-save"></i> {{ isCategoryUpdate ? 'Atualizar' : 'Criar' }}
+      </button>
+      <button type="reset" (click)="getCategories()">
+        <i class="fas fa-eraser"></i> Limpar
+      </button>
+      <button type="reset" *ngIf="isCategoryUpdate" (click)="deleteCategory()">
+        <i class="fas fa-trash"></i> Apagar
+      </button>
+      <!-- Aqui está o botão "Ver Subcategorias" -->
+      <button *ngIf="isCategoryUpdate" (click)="viewSubcategories(selectedCategory)">
+        Ver Subcategorias
+      </button>
+    </div>
+  </form>
+</div>
+
+</div>
+
+<router-outlet></router-outlet>
