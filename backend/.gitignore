@@ -1,0 +1,6 @@
+.venv
+.idea/
+db.sqlite3
+.python-version
+install-pyenv-win.ps1
+.env

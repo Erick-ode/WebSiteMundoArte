@@ -23,7 +23,7 @@
     }
 }
 :root {
-  --color-primary: #1D3557;           /* Preto */
+  --color-primary: #f39086;      
   --color-secondary: #434e54;      /* Azul marinho */
   --color-tertiary: #0d3335;       /* Azul céu */
   --color-quinary: #E63946;        /* Vermelho */
@@ -90,7 +90,7 @@ h3{
   justify-content: space-between;
   align-items: center;
   padding: 10px 30px;
-  background-image: linear-gradient(rgb(230, 217, 217), rgb(196, 51, 109)) ; /* Cor de fundo ajustada para branco */
+  background-image: linear-gradient(rgb(230, 217, 217), rgb(246, 66, 81)) ; /* Cor de fundo ajustada para branco */
   color: var(--color-dark); /* Cor do texto ajustada para cinza escuro */
 }
 .menu-items, .Empresa {
@@ -374,4 +374,31 @@ h3 {
     flex-direction: column;
     align-items: center;
   }
+}
+
+/* Responsive styling for iPhone 14 and Samsung Galaxy 21 */
+@media screen and (max-width: 414px) {  /* iPhone 14 Max width */
+  .menu {
+    flex-direction: column;
+    padding: 5px 15px;
+  }
+  
+  .menu-items {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .menu-item {
+    margin-bottom: 10px;
+  }
+}
+
+/* Styling for subcategories */
+.dropdown-content {
+    padding: 10px 0;
+}
+
+.dropdown-content li {
+    padding: 8px 0;
+    font-size: 1.1em;  /* Adjusting font size for better readability */
 }
